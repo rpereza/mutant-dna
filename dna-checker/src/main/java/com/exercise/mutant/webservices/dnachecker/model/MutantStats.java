@@ -1,4 +1,4 @@
-package com.exercise.mutant.webservices.dnachecker;
+package com.exercise.mutant.webservices.dnachecker.model;
 
 /**
  * @author Rodolfo Pérez Avila
