@@ -1,14 +1,13 @@
 package com.exercise.mutant.webservices.dnachecker.model;
 
 import java.util.ArrayList;
-import java.util.List;
 
 public class HumanDna {
 
 	/**
 	 * Representa la secuencia del ADN de un humano
 	 */
-	private List<String> dna;
+	private ArrayList<String> dna;
 	
 	/**
 	 * Constructor que inicializa la secuencia vacia
@@ -20,14 +19,14 @@ public class HumanDna {
 	/**
 	 * @return Retorna la secuencia de ADN
 	 */
-	public List<String> getDna() {
+	public ArrayList<String> getDna() {
 		return dna;
 	}
 
 	/**
 	 * @param Establece la secuencia de ADN
 	 */
-	public void setDna(List<String> dna) {
+	public void setDna(ArrayList<String> dna) {
 		this.dna = dna;
 	}
 }
