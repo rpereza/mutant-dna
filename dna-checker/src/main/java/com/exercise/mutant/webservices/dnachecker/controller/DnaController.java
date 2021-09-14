@@ -1,7 +1,6 @@
 package com.exercise.mutant.webservices.dnachecker.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Example;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -11,7 +10,6 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.exercise.mutant.webservices.dnachecker.Repository.DnaRepository;
 import com.exercise.mutant.webservices.dnachecker.manager.DnaManager;
-import com.exercise.mutant.webservices.dnachecker.model.DnaStats;
 import com.exercise.mutant.webservices.dnachecker.model.HumanDna;
 import com.exercise.mutant.webservices.dnachecker.model.MutantStats;
 
@@ -36,10 +34,9 @@ public class DnaController {
 	 */
 	@PostMapping(path = "/mutant")
 	public ResponseEntity<Object> Mutant(@RequestBody HumanDna humanDna) {
-		boolean valid = false;
-		if(humanDna != null) {
-			valid = manager.IsMutant(humanDna.getDna());		
-		}
+		//Chequeamos la secuencia de ADN
+		boolean valid = manager.IsMutant(humanDna.getDna());		
+		//Chequeamos el resultado de la validacion
 		if(valid) {
 			return ResponseEntity.ok().build();
 		} else {

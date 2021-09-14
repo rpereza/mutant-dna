@@ -13,8 +13,8 @@ import com.exercise.mutant.webservices.dnachecker.model.DnaStats;
 
 /**
  * 
- * @author Rodolfo Pérez Avila Clase para implementación de lógica de chequeo de
- *         ADN
+ * @author Rodolfo Pérez Avila 
+ * Clase para implementación de lógica de chequeo de ADN
  */
 @Component
 public class DnaManager {
@@ -35,10 +35,6 @@ public class DnaManager {
 
 		// Obtenemos la cantidad de elementos de la secuencia para validar
 		int secuenceSize = dna.size();
-
-		// Validamos que la secuencia tenga al menos 4 segmentos
-		if (secuenceSize < 4)
-			return false;
 
 		// Declaramos una expresión para validar las letras permitidas
 		Pattern pattern = Pattern.compile("[ATCG]*");
@@ -115,6 +111,10 @@ public class DnaManager {
 						// Chequeamos si el consecutivo alcanzó un múltiplo de 4
 						if (currentCount % 4 == 0) {
 							completedSecuences++;
+							//Chequeamos si se alcanzó la condición para no seguir procesando
+							if(completedSecuences > 1) {
+								break;
+							}
 						}
 					} else {
 						// Reiniciamos a 1 la cantidad para la letra no consecutiva
@@ -151,11 +151,19 @@ public class DnaManager {
 						// Chequeamos si el consecutivo alcanzó un múltiplo de 4
 						if (currentCount % 4 == 0) {
 							completedSecuences++;
+							//Chequeamos si se alcanzó la condición para no seguir procesando
+							if(completedSecuences > 1) {
+								break;
+							}
 						}
 					} else {
 						// Reiniciamos a 1 la cantidad para la letra no consecutiva
 						fileCount.replace(columnLetter, 1);
 					}
+				}
+				//Chequeamos si se alcanzó la condición para no seguir procesando
+				if(completedSecuences > 1) {
+					break;
 				}
 			}
 		}
@@ -186,11 +194,19 @@ public class DnaManager {
 						// Chequeamos si el consecutivo alcanzó un múltiplo de 4
 						if (currentCount % 4 == 0) {
 							completedSecuences++;
+							//Chequeamos si se alcanzó la condición para no seguir procesando
+							if(completedSecuences > 1) {
+								break;
+							}
 						}
 					} else {
 						// Reiniciamos a 1 la cantidad para la letra no consecutiva
 						fileCount.replace(columnLetter, 1);
 					}
+				}
+				//Chequeamos si se alcanzó la condición para no seguir procesando
+				if(completedSecuences > 1) {
+					break;
 				}
 			}
 		}
