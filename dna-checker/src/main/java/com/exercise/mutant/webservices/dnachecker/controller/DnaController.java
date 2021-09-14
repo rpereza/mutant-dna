@@ -1,6 +1,7 @@
 package com.exercise.mutant.webservices.dnachecker.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Example;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -8,7 +9,9 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.exercise.mutant.webservices.dnachecker.Repository.DnaRepository;
 import com.exercise.mutant.webservices.dnachecker.manager.DnaManager;
+import com.exercise.mutant.webservices.dnachecker.model.DnaStats;
 import com.exercise.mutant.webservices.dnachecker.model.HumanDna;
 import com.exercise.mutant.webservices.dnachecker.model.MutantStats;
 
@@ -22,6 +25,9 @@ public class DnaController {
 	
 	@Autowired
 	private DnaManager manager;
+	
+	@Autowired
+	private DnaRepository repository;
 	
 	/**
 	 * Método que evalua una secuencia de ADN dada
@@ -47,9 +53,18 @@ public class DnaController {
 	 */
 	@GetMapping(path = "/stats")
 	public MutantStats Stats() {
+		//Declaramos las estadísticas de retorno 
 		MutantStats stats = new MutantStats();
-		stats.setCount_human_dna(200);
-		stats.setCount_mutant_dna(40);
+		
+		//Obtenemos la cantidad de humanos no mutantes
+		long humanCount = repository.CountNonMutant();
+		stats.setCount_human_dna(humanCount);
+		
+		//obtenemos la cantidad de mutantes
+		long mutantCount = repository.CountMutant();				
+		stats.setCount_mutant_dna(mutantCount);
+		
+		//Retornamos las estadísticas
 		return stats;
 	}
 }

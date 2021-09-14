@@ -5,7 +5,11 @@ import java.util.Hashtable;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
+
+import com.exercise.mutant.webservices.dnachecker.Repository.DnaRepository;
+import com.exercise.mutant.webservices.dnachecker.model.DnaStats;
 
 /**
  * 
@@ -14,6 +18,9 @@ import org.springframework.stereotype.Component;
  */
 @Component
 public class DnaManager {
+	
+	@Autowired
+	private DnaRepository repository;
 
 	/**
 	 * Método que verifica una secuencia de ADN dada para chequear si es mutante
@@ -188,9 +195,20 @@ public class DnaManager {
 			}
 		}
 		
-		//Persistimos el resultado para el chequeo estadístico
-		//???
-
-		return completedSecuences > 1;
+		//Extraemos la información
+		String dnaSecuence = String.join("", dna);
+		boolean isMutant = completedSecuences > 1;
+		
+		//Validamos que no exista
+		long existsCount = repository.CountSameSecuence(dnaSecuence);
+		if(existsCount == 0) {
+			//Creamos el objeto a persistir
+			DnaStats stats = new DnaStats(dnaSecuence, isMutant);
+			//Si no existe lo persistimos para las estadísticas
+			repository.save(stats);
+		}
+		
+		//Retornamos si es mutante o no
+		return isMutant;
 	}
 }
