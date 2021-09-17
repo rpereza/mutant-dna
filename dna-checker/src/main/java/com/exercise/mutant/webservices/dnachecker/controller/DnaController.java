@@ -33,9 +33,9 @@ public class DnaController {
 	 * @return Retorna estado 200 si es mutante y 403 en caso contrario
 	 */
 	@PostMapping(path = "/mutant")
-	public ResponseEntity<Object> Mutant(@RequestBody HumanDna humanDna) {
+	public ResponseEntity<Object> mutant(@RequestBody HumanDna humanDna) {
 		//Chequeamos la secuencia de ADN
-		boolean valid = manager.IsMutant(humanDna.getDna());		
+		boolean valid = manager.isMutant(humanDna.getDna());		
 		//Chequeamos el resultado de la validacion
 		if(valid) {
 			return ResponseEntity.ok().build();
@@ -49,16 +49,16 @@ public class DnaController {
 	 * @return Retorna información estadistica 
 	 */
 	@GetMapping(path = "/stats")
-	public MutantStats Stats() {
+	public MutantStats stats() {
 		//Declaramos las estadísticas de retorno 
 		MutantStats stats = new MutantStats();
 		
 		//Obtenemos la cantidad de humanos no mutantes
-		long humanCount = repository.CountNonMutant();
+		long humanCount = repository.countNonMutant();
 		stats.setCount_human_dna(humanCount);
 		
 		//obtenemos la cantidad de mutantes
-		long mutantCount = repository.CountMutant();				
+		long mutantCount = repository.countMutant();				
 		stats.setCount_mutant_dna(mutantCount);
 		
 		//Retornamos las estadísticas

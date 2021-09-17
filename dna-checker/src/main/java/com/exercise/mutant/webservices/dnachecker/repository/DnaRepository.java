@@ -10,11 +10,11 @@ import com.exercise.mutant.webservices.dnachecker.model.DnaStats;
 public interface DnaRepository extends JpaRepository<DnaStats, Long> {
 	
 	@Query("SELECT COUNT(s) FROM DnaStats s WHERE s.is_mutant=1")
-    long CountMutant();
+    long countMutant();
 	
 	@Query("SELECT COUNT(s) FROM DnaStats s WHERE s.is_mutant=0")
-    long CountNonMutant();
+    long countNonMutant();
 	
 	@Query("SELECT COUNT(s) FROM DnaStats s WHERE s.dna=?1")
-    long CountSameSecuence(String secuence);
+    long countSameSecuence(String secuence);
 }
