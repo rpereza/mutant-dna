@@ -28,7 +28,7 @@ public class DnaManager {
 	 * @param dna
 	 * @return Retorna verdadero o falso
 	 */
-	public boolean IsMutant(ArrayList<String> dna) {
+	public boolean isMutant(ArrayList<String> dna) {
 		// Chequeamos si tiene elementos el arreglo
 		if (dna.isEmpty())
 			return false;
@@ -216,7 +216,7 @@ public class DnaManager {
 		boolean isMutant = completedSecuences > 1;
 		
 		//Validamos que no exista
-		long existsCount = repository.CountSameSecuence(dnaSecuence);
+		long existsCount = repository.countSameSecuence(dnaSecuence);
 		if(existsCount == 0) {
 			//Creamos el objeto a persistir
 			DnaStats stats = new DnaStats(dnaSecuence, isMutant);

@@ -1,7 +1,7 @@
 package com.exercise.mutant.webservices.dnachecker.controller;
 
-
 import java.util.ArrayList;
+import java.util.Arrays;
 
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -29,192 +29,110 @@ class DnaControllerTest {
 	private ObjectMapper objectMapper;
 
 	@Test
-	void EmptyDnaSecuence() throws Exception {
-		
+	void emptyDnaSecuence() throws Exception {
+		// Given
 		HumanDna dna = new HumanDna();
-		
+		// When and then
 		mockMvc.perform(MockMvcRequestBuilders.post("/mutant").contentType("application/json")
-				.content(objectMapper.writeValueAsString(dna)))
-				.andExpect(MockMvcResultMatchers.status().isForbidden());
+				.content(objectMapper.writeValueAsString(dna))).andExpect(MockMvcResultMatchers.status().isForbidden());
 	}
-	
+
 	@Test
-	void NonSquareMatrixDnaSecuence() throws Exception {
-		
-		HumanDna dna = new HumanDna();
-		
-		ArrayList<String> dnaSecuence = new ArrayList<String>();
-		dnaSecuence.add("AGCC");
-		dnaSecuence.add("ATTA");
-		dnaSecuence.add("CGC");
-		
-		dna.setDna(dnaSecuence);
-		
+	void nonSquareMatrixDnaSecuence() throws Exception {
+		// Given
+		HumanDna dna = new HumanDna(new ArrayList<String>(Arrays.asList("AGCC", "ATTA", "CGC")));
+
+		// When and then
 		mockMvc.perform(MockMvcRequestBuilders.post("/mutant").contentType("application/json")
-				.content(objectMapper.writeValueAsString(dna)))
-				.andExpect(MockMvcResultMatchers.status().isForbidden());
+				.content(objectMapper.writeValueAsString(dna))).andExpect(MockMvcResultMatchers.status().isForbidden());
 	}
-	
+
 	@Test
-	void NonValidCharacterDnaSecuence() throws Exception {
+	void nonValidCharacterDnaSecuence() throws Exception {
+		// Given
+		HumanDna dna = new HumanDna(new ArrayList<String>(Arrays.asList("AGCC", "AZTA", "CGCT", "GTAC")));
 		
-		HumanDna dna = new HumanDna();
-		
-		ArrayList<String> dnaSecuence = new ArrayList<String>();
-		dnaSecuence.add("AGCC");
-		dnaSecuence.add("AZTA");
-		dnaSecuence.add("CGCT");
-		dnaSecuence.add("GTAC");
-		
-		dna.setDna(dnaSecuence);
-		
+		// When and then
 		mockMvc.perform(MockMvcRequestBuilders.post("/mutant").contentType("application/json")
-				.content(objectMapper.writeValueAsString(dna)))
-				.andExpect(MockMvcResultMatchers.status().isForbidden());
+				.content(objectMapper.writeValueAsString(dna))).andExpect(MockMvcResultMatchers.status().isForbidden());
 	}
-	
+
 	@Test
-	void OnlyOneHorizontalDnaSecuenceMatch() throws Exception {
-		
-		HumanDna dna = new HumanDna();
-		
-		ArrayList<String> dnaSecuence = new ArrayList<String>();
-		dnaSecuence.add("AGCCT");
-		dnaSecuence.add("ATTAC");
-		dnaSecuence.add("CGCTG");
-		dnaSecuence.add("GGGGG");
-		dnaSecuence.add("GTACT");
-		
-		dna.setDna(dnaSecuence);
-		
+	void onlyOneHorizontalDnaSecuenceMatch() throws Exception {
+		// Given
+		HumanDna dna = new HumanDna(new ArrayList<String>(Arrays.asList("AGCCT", "ATTAC", "CGCTG", "GGGGG", "GTACT")));
+
+		// When and then
 		mockMvc.perform(MockMvcRequestBuilders.post("/mutant").contentType("application/json")
-				.content(objectMapper.writeValueAsString(dna)))
-				.andExpect(MockMvcResultMatchers.status().isForbidden());
+				.content(objectMapper.writeValueAsString(dna))).andExpect(MockMvcResultMatchers.status().isForbidden());
 	}
-	
+
 	@Test
-	void OnlyOneVerticalDnaSecuenceMatch() throws Exception {
-		
-		HumanDna dna = new HumanDna();
-		
-		ArrayList<String> dnaSecuence = new ArrayList<String>();
-		dnaSecuence.add("ATCCT");
-		dnaSecuence.add("ATTAC");
-		dnaSecuence.add("CTCTG");
-		dnaSecuence.add("GTCCA");
-		dnaSecuence.add("GTACT");
-		
-		dna.setDna(dnaSecuence);
-		
+	void onlyOneVerticalDnaSecuenceMatch() throws Exception {
+		// Given
+		HumanDna dna = new HumanDna(new ArrayList<String>(Arrays.asList("ATCCT", "ATTAC", "CTCTG", "GTCCA", "GTACT")));
+
+		// When and then
 		mockMvc.perform(MockMvcRequestBuilders.post("/mutant").contentType("application/json")
-				.content(objectMapper.writeValueAsString(dna)))
-				.andExpect(MockMvcResultMatchers.status().isForbidden());
+				.content(objectMapper.writeValueAsString(dna))).andExpect(MockMvcResultMatchers.status().isForbidden());
 	}
-	
+
 	@Test
-	void OnlyOneDiagonalLtrDnaSecuenceMatch() throws Exception {
-		
-		HumanDna dna = new HumanDna();
-		
-		ArrayList<String> dnaSecuence = new ArrayList<String>();
-		dnaSecuence.add("CTCCT");
-		dnaSecuence.add("ACTAC");
-		dnaSecuence.add("CACTG");
-		dnaSecuence.add("GGCCA");
-		dnaSecuence.add("GAACC");
-		
-		dna.setDna(dnaSecuence);
-		
+	void onlyOneDiagonalLtrDnaSecuenceMatch() throws Exception {
+		// Given
+		HumanDna dna = new HumanDna(new ArrayList<String>(Arrays.asList("CTCCT", "ACTAC", "CACTG", "GGCCA", "GAACC")));
+
+		// When and then
 		mockMvc.perform(MockMvcRequestBuilders.post("/mutant").contentType("application/json")
-				.content(objectMapper.writeValueAsString(dna)))
-				.andExpect(MockMvcResultMatchers.status().isForbidden());
+				.content(objectMapper.writeValueAsString(dna))).andExpect(MockMvcResultMatchers.status().isForbidden());
 	}
-	
+
 	@Test
-	void OnlyOneDiagonalRtlDnaSecuenceMatch() throws Exception {
-		
-		HumanDna dna = new HumanDna();
-		
-		ArrayList<String> dnaSecuence = new ArrayList<String>();
-		dnaSecuence.add("ATCCT");
-		dnaSecuence.add("ACTTC");
-		dnaSecuence.add("CATTG");
-		dnaSecuence.add("GTCCA");
-		dnaSecuence.add("TAACT");
-		
-		dna.setDna(dnaSecuence);
-		
+	void onlyOneDiagonalRtlDnaSecuenceMatch() throws Exception {
+		// Given
+		HumanDna dna = new HumanDna(new ArrayList<String>(Arrays.asList("ATCCT", "ACTTC", "CATTG", "GTCCA", "TAACT")));
+
+		// When and then
 		mockMvc.perform(MockMvcRequestBuilders.post("/mutant").contentType("application/json")
-				.content(objectMapper.writeValueAsString(dna)))
-				.andExpect(MockMvcResultMatchers.status().isForbidden());
+				.content(objectMapper.writeValueAsString(dna))).andExpect(MockMvcResultMatchers.status().isForbidden());
 	}
-	
+
 	@Test
-	void OneHorizontalOneVerticalDnaSecuenceMatch() throws Exception {
-		
-		HumanDna dna = new HumanDna();
-		
-		ArrayList<String> dnaSecuence = new ArrayList<String>();
-		dnaSecuence.add("AGCCCA");
-		dnaSecuence.add("ATTACC");
-		dnaSecuence.add("CGCTCC");
-		dnaSecuence.add("GTTACG");
-		dnaSecuence.add("GGGGGG");
-		dnaSecuence.add("GTACTT");
-		
-		dna.setDna(dnaSecuence);
-		
+	void oneHorizontalOneVerticalDnaSecuenceMatch() throws Exception {
+		// Given
+		HumanDna dna = new HumanDna(new ArrayList<String>(Arrays.asList("AGCCCA", "ATTACC", "CGCTCC", "GTTACG", "GGGGGG", "GTACTT")));
+
+		// When and then
 		mockMvc.perform(MockMvcRequestBuilders.post("/mutant").contentType("application/json")
-				.content(objectMapper.writeValueAsString(dna)))
+				.content(objectMapper.writeValueAsString(dna))).andExpect(MockMvcResultMatchers.status().isOk());
+	}
+
+	@Test
+	void oneVerticalOneDiagonalLtrDnaSecuenceMatch() throws Exception {
+		// Given
+		HumanDna dna = new HumanDna(new ArrayList<String>(Arrays.asList("AGCTCA", "ATTACC", "CTCTCC", "ATTACG", "GCTTAG", "GTACTT")));
+
+		// When and then
+		mockMvc.perform(MockMvcRequestBuilders.post("/mutant").contentType("application/json")
+				.content(objectMapper.writeValueAsString(dna))).andExpect(MockMvcResultMatchers.status().isOk());
+	}
+
+	@Test
+	void oneDiagonalLtrOneDiagonalRltDnaSecuenceMatch() throws Exception {
+		// Given
+		HumanDna dna = new HumanDna(new ArrayList<String>(Arrays.asList("AGCTAA", "ATTACC", "CTCTGC", "TCAACG", "GCCCAG", "GTCCTT")));
+
+		// When and then
+		mockMvc.perform(MockMvcRequestBuilders.post("/mutant").contentType("application/json")
+				.content(objectMapper.writeValueAsString(dna))).andExpect(MockMvcResultMatchers.status().isOk());
+	}
+
+	@Test
+	void getMutantStats() throws Exception {
+
+		// When and then
+		mockMvc.perform(MockMvcRequestBuilders.get("/stats").accept(MediaType.APPLICATION_JSON))
 				.andExpect(MockMvcResultMatchers.status().isOk());
-	}
-	
-	@Test
-	void OneVerticalOneDiagonalLtrDnaSecuenceMatch() throws Exception {
-		
-		HumanDna dna = new HumanDna();
-		
-		ArrayList<String> dnaSecuence = new ArrayList<String>();
-		dnaSecuence.add("AGCTCA");
-		dnaSecuence.add("ATTACC");
-		dnaSecuence.add("CTCTCC");
-		dnaSecuence.add("ATTACG");
-		dnaSecuence.add("GCTTAG");
-		dnaSecuence.add("GTACTT");
-		
-		dna.setDna(dnaSecuence);
-		
-		mockMvc.perform(MockMvcRequestBuilders.post("/mutant").contentType("application/json")
-				.content(objectMapper.writeValueAsString(dna)))
-				.andExpect(MockMvcResultMatchers.status().isOk());
-	}
-	
-	@Test
-	void OneDiagonalLtrOneDiagonalRltDnaSecuenceMatch() throws Exception {
-		
-		HumanDna dna = new HumanDna();
-		
-		ArrayList<String> dnaSecuence = new ArrayList<String>();
-		dnaSecuence.add("AGCTAA");
-		dnaSecuence.add("ATTACC");
-		dnaSecuence.add("CTCTGC");
-		dnaSecuence.add("TCAACG");
-		dnaSecuence.add("GCCCAG");
-		dnaSecuence.add("GTCCTT");
-		
-		dna.setDna(dnaSecuence);
-		
-		mockMvc.perform(MockMvcRequestBuilders.post("/mutant").contentType("application/json")
-				.content(objectMapper.writeValueAsString(dna)))
-				.andExpect(MockMvcResultMatchers.status().isOk());
-	}
-	
-	@Test
-	void GetMutantStats() throws Exception {
-		
-		mockMvc.perform(MockMvcRequestBuilders.get("/stats")
-				.accept(MediaType.APPLICATION_JSON))
-			    .andExpect(MockMvcResultMatchers.status().isOk());
 	}
 
 }

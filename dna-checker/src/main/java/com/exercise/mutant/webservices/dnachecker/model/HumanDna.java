@@ -15,6 +15,13 @@ public class HumanDna {
 	public HumanDna() {
 		this.dna = new ArrayList<String>();
 	}
+	
+	/**
+	 * Constructor que inicializa con una secuencia dada
+	 */
+	public HumanDna(ArrayList<String> dna) {
+		this.dna = dna;
+	}
 
 	/**
 	 * @return Retorna la secuencia de ADN
