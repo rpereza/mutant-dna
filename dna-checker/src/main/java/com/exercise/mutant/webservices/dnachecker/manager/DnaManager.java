@@ -8,8 +8,8 @@ import java.util.regex.Pattern;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
-import com.exercise.mutant.webservices.dnachecker.Repository.DnaRepository;
 import com.exercise.mutant.webservices.dnachecker.model.DnaStats;
+import com.exercise.mutant.webservices.dnachecker.repository.DnaRepository;
 
 /**
  * 

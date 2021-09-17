@@ -8,10 +8,10 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.exercise.mutant.webservices.dnachecker.Repository.DnaRepository;
 import com.exercise.mutant.webservices.dnachecker.manager.DnaManager;
 import com.exercise.mutant.webservices.dnachecker.model.HumanDna;
 import com.exercise.mutant.webservices.dnachecker.model.MutantStats;
+import com.exercise.mutant.webservices.dnachecker.repository.DnaRepository;
 
 /**
  * 
