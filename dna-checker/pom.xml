@@ -10,7 +10,7 @@
 	</parent>
 	<groupId>com.exercise.mutant.webservices</groupId>
 	<artifactId>dna-checker</artifactId>
-	<version>0.0.1-SNAPSHOT</version>
+	<version>1.0.0-RELEASE</version>
 	<name>dna-checker</name>
 	<description>Excercise for mutant DNA check</description>
 	<properties>
@@ -76,6 +76,12 @@
 			<plugin>
 				<groupId>org.springframework.boot</groupId>
 				<artifactId>spring-boot-maven-plugin</artifactId>
+				<configuration>
+					<image>
+						<name>mutant_excercise/${project.artifactId}:${project.version}</name>
+					</image>
+					<pullPolicy>IF_NOT_PRESENT</pullPolicy>
+				</configuration>
 			</plugin>
 		</plugins>
 	</build>

@@ -1,0 +1,37 @@
+version: '3.7'
+
+services:
+  dna-checker:
+    image: mutant_excercise/dna-checker:1.0.0-RELEASE
+    mem_limit: 700m
+    ports:
+      - "8080:8080"
+    networks:
+      - mutant-network
+    depends_on:
+      - naming-server
+    environment:
+      EUREKA.CLIENT.SERVICEURL.DEFAULTZONE: http://naming-server:8761/eureka 
+
+  api-gateway:
+    image: mutant_excercise/api-gateway:1.0.0-RELEASE
+    mem_limit: 700m
+    ports:
+      - "80:80"
+    networks:
+      - mutant-network
+    depends_on:
+      - naming-server
+    environment:
+      EUREKA.CLIENT.SERVICEURL.DEFAULTZONE: http://naming-server:8761/eureka
+
+  naming-server:
+    image: mutant_excercise/naming-server:1.0.0-RELEASE
+    mem_limit: 700m
+    ports:
+      - "8761:8761"
+    networks:
+      - mutant-network
+
+networks:
+  mutant-network:
